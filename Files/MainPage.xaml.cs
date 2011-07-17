@@ -32,11 +32,36 @@ namespace Files
 				isf.CreateDirectory("users");				
 			}
 
+			userList.Items.Clear();
 			string [] userFiles = isf.GetFileNames(@"users\*.user");
 			foreach (string userFile in userFiles)
 			{
 				userList.Items.Add(userFile);
 			}
 		}
+
+		private void AddUser_Click(object sender, EventArgs e)
+		{
+			NavigationService.Navigate(new Uri("/AddUser.xaml", UriKind.Relative));
+		}
+
+		private void DeleteUser_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void userList_Tap(object sender, GestureEventArgs e)
+		{
+			if (e.OriginalSource is TextBlock)
+			{
+				TextBlock tb = e.OriginalSource as TextBlock;
+				NavigationService.Navigate(
+					new Uri(
+						string.Concat("/DisplayPreferences.xaml?user=", tb.Text), 
+						UriKind.Relative));
+			}
+		}
+
+
 	}
 }
