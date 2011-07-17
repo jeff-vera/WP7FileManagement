@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.IO.IsolatedStorage;
 
 namespace Files
 {
@@ -19,6 +20,23 @@ namespace Files
 		public MainPage()
 		{
 			InitializeComponent();
+		}
+
+		protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+
+			IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+			if (!isf.DirectoryExists("users"))
+			{
+				isf.CreateDirectory("users");				
+			}
+
+			string [] userFiles = isf.GetFileNames(@"users\*.user");
+			foreach (string userFile in userFiles)
+			{
+				userList.Items.Add(userFile);
+			}
 		}
 	}
 }
