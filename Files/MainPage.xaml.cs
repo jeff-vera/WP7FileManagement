@@ -32,12 +32,8 @@ namespace Files
 				isf.CreateDirectory("users");				
 			}
 
-			userList.Items.Clear();
 			string [] userFiles = isf.GetFileNames(@"users\*.user");
-			foreach (string userFile in userFiles)
-			{
-				userList.Items.Add(userFile);
-			}
+			userList.ItemsSource = userFiles;
 		}
 
 		private void AddUser_Click(object sender, EventArgs e)
@@ -47,7 +43,7 @@ namespace Files
 
 		private void DeleteUser_Click(object sender, EventArgs e)
 		{
-
+			NavigationService.Navigate(new Uri("/DeleteUser.xaml", UriKind.Relative));
 		}
 
 		private void userList_Tap(object sender, GestureEventArgs e)
