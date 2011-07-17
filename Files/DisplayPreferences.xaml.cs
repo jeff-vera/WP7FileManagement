@@ -56,8 +56,12 @@ namespace Files
 				}
 			} while (currentByte >= 0);
 
-			string convertedContents =
-				System.Text.Encoding.UTF8.GetString(contents.ToArray<byte>());
+			string convertedContents =System.Text.UTF8Encoding.UTF8.GetString(
+				contents.ToArray<byte>(), 
+				0, 
+				contents.Count);
+
+			return convertedContents;
 		}
 	}
 }
